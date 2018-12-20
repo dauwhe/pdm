@@ -111,7 +111,14 @@ readingOrder:
 This is the most interesting case, as we have an installed base to worry about. Can we map our JSON/YAML to OPF?
 
 
+| WPUB/WAM JSON | AUDIO YAML | EPUB OPF XML |
+| readingOrder | readingOrder | spine |
+| resources | resources | manifest – spine |
+| name | name | dc:title |
+| modified | modified | dc:modified |
 
+
+## Entry pages and the HTML question
 
 
 
