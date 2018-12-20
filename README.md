@@ -60,7 +60,12 @@ We can borrow from the work of PWG to add `readingOrder` and `resources`.
     { "href": "chapter-001.html" },
     { "href": "chapter-002.html" },
     { "href": "chapter-003.html" }
-  ]
+  ],
+  "resources": [
+    { "href": "cover.jpg",
+      "type": "image/jpeg",
+      "rel": "cover-image" }
+  ],
 }
 
 ```
