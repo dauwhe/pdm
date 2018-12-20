@@ -83,30 +83,24 @@ copyright: "Blackstone Publishing, Inc."
 id: "9781234567890"                                                                                              
 modified: "2012-08-14T16:49:59+00:00"                                                                                                                         
 resources:
-  /cover.jpg:
-    href: "http://example.org/cover.jpg"
+  - href: "cover.jpg"
     title: "War and Peace... in space! (Unabridged)"
     type: "image/jpeg"
     rel: "cover"
 readingOrder:
-  /6729-001.m4a:
-    href: "http://example.org/audio/6729-001.m4a"             
+  - href: "6729-001.m4a"             
     duration: 3336.3330416666668                                  
     type: "audio/mpeg"                                                                                        
-  /6729-002.m4a:
-    href: "http://example.org/audio/6729-002.m4a"
+  - href: "6729-002.m4a"
     duration: 2446.1845
     type: "audio/mpeg"
-  /6729-003.m4a:
-    href: "http://example.org/audio/6729-003.m4a"
+  - href: "6729-003.m4a"
     duration: 2543.1249166666666
     type: "audio/mpeg"
-  /6729-004.m4a:
-    href: "http://example.org/audio/6729-004.m4a"
+  - href: "6729-004.m4a"
     duration: 3364.022875
     type: "audio/mpeg"
-  /6729-005.m4a:
-    href: "http://example.org/audio/6729-005.m4a"
+  - href: "6729-005.m4a"
     duration: 3364.022875
     type: "audio/mpeg"
 
