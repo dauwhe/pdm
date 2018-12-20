@@ -112,6 +112,7 @@ This is the most interesting case, as we have an installed base to worry about. 
 
 
 | WPUB/WAM JSON | AUDIO YAML | EPUB OPF XML |
+| ------------- | ------------- | ------------- |
 | readingOrder | readingOrder | spine |
 | resources | resources | manifest – spine |
 | name | name | dc:title |
