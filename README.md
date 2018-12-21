@@ -23,7 +23,7 @@ Maybe it's only two things, boundary and sequence.
 Might it be possible to define a flexible data model for publishing, which can serve as common DNA for many different types of publications? With differing serializations and packaging, can we express everything from EPUB 3 to a futuristic web publication with a relatively simple model? Let's try.
 
 
-**NOTE:** Nothing here extends the capabilities of the web. We need that, but we don't fully know what we need. We need to experiment, but our experimentation would be facilitated by having an agreed-on data model. Here's the basic info about a publication—there may be hundreds of ways of expressing that with markup and script. We'll likely run into problems with personalization, with pagination, with crafting URLs that point to secondary browsing contexts. Maybe we'll need HTML imports, or other forms of transclusion. But let's all experiment while sharing the fundamental expressions of sequence and boundary that define a publication. 
+**NOTE:** Nothing here extends the capabilities of the web. We need that, but we don't fully know what we need. We need to experiment, but our experimentation would be facilitated by having an agreed-on data model. Given the basic information about a publication, there may be hundreds of ways of expressing that with markup and script. We'll likely run into problems with personalization, with pagination, with crafting URLs that point to secondary browsing contexts. Maybe we'll need HTML imports, or other forms of transclusion. But let's all experiment while sharing the fundamental expressions of sequence and boundary that define a publication. 
 
 ## The existing landscape and web application manifest.
 
@@ -33,15 +33,15 @@ To a large extent, we are trying to express metadata about a collection of web r
 
 > This specification defines a JSON-based manifest file that provides developers with a centralized place to put metadata associated with a web application.
 
-More importantly, we find:
+This sounds close to what we need More importantly, we find:
 
 > Using this metadata, user agents can provide developers with means to create user experiences that are more comparable to that of a native application.
 
-*This* is close to what we want. We want to provide a better user experience for publications. We might need help from user agents. We definitely need help from developers.
+*This* is what we want. We want to provide a better user experience for publications. We might need help from user agents. We definitely need help from developers.
 
 The Publishing Working Group (PWG) has rejected WAM, but we should reconsider that decision. Much of what is written below applies to any manifest file, whether it is identified as a web application manifest or not. However, using WAM gives us the tremendous advantage that the processing model and the nature of the display modes is already defined. We do not have the skills inside the Publishing Working Group to define things in a manner consistent with browser architecture and the web security model. 
 
-WAM largely exists to allow web apps to be "installed" in the manner of native apps on mobile platforms. In an ideal world, we would be able to add publications to bookshelves, as users want to organize their collections. The similarity between these two concepts is interesting. 
+WAM, in its present form, largely exists to allow web apps to be "installed" in the manner of native apps on mobile platforms. In an ideal world, we would be able to add publications to bookshelves, as users want to organize their collections. The similarity between these two concepts is interesting. 
 
 ## A few words on Metadata, JSON-LD, and schema.org
 
