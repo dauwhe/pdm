@@ -92,7 +92,8 @@ We have a few core concepts, which we can express differently in different conte
 
 |Concept| JSON for WPUB | YAML for Audio/Image | XML for EPUB |
 | ------------- | ------------- | ------------- | ------------- |
-| sequence | readingOrder | readingOrder | spine |
+| type of publication | type | type | dc:type |
+| sequence of resources | readingOrder | readingOrder | spine |
 | list of resources | resources | resources | manifest minus spine |
 | location of resources | href | href | href |
 | media type of resource | media-type | media-type | media-type |
@@ -107,16 +108,14 @@ We have a few core concepts, which we can express differently in different conte
 | title | name | name | dc:title |
 | last modified date | modified | modified | dc:modified |
 | identifier | identifier | identifier | dc:identifier |
-| author | author | author | dc:creator/@role |
-| narrator | narrator | narrator | dc:creator/@role |
+| author | author | author | dc:creator + meta |
 | publisher | publisher | publisher | dc:publisher |
-| duration | duration | duration | ?? |
 
 ### Audio-focused metadata 
 |Concept| JSON for WPUB | YAML for Audio/Image | XML for EPUB |
 | ------------- | ------------- | ------------- | ------------- |
-| narrator | narrator | narrator | dc:creator/@role |
-| duration | duration | duration | ?? |
+| narrator | narrator | narrator | dc:creator + meta |
+| duration | duration | duration | `meta property="media:duration"` |
 | size in bytes | size | size | ?? |
 | license? | license | license | ?? |
 | md5 hash of contents | md5 | md5 | ?? |
