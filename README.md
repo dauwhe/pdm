@@ -46,14 +46,14 @@ The Publishing Working Group (PWG) has rejected WAM, but we should reconsider th
 
 WAM, in its present form, largely exists to allow web apps to be "installed" in the manner of native apps on mobile platforms. In an ideal world, we would be able to add publications to bookshelves, as users want to organize their collections. The similarity between these two concepts is interesting. 
 
-### JSON-LD, schema.org, and metadata.
+### JSON-LD, schema.org, and metadata
 
 The design of web publications has been complicated by our desire to use [schema.org](https://schema.org). We apply unfamiliar names to concepts. We introduce complications (two contexts!). And the end result is that when we paste our work into Google’s structured data testing tool, we get hundreds of errors. Our ship founders on the treacherous reefs of RDF. 
 
 We should focus on the structural issues of publications at this early stage. The web has a multiplicity of methods to assign metadata to web pages. Perhaps we can leave this up to authors and developers, or at least not spend much of our time worrying about how titles sort, when we don’t know how publications work.
 
 
-### Entry pages and the need for HTML.
+### Entry pages and the need for HTML
 
 We mentioned that one of the big questions is, "where do I start?"
 
