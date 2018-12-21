@@ -78,13 +78,16 @@ We can borrow from the work of PWG to add `readingOrder` and `resources`.
   "resources": [
     { "href": "cover.jpg",
       "type": "image/jpeg",
-      "rel": "cover-image" }
+      "rel": "cover-image" },
+    { "href": "nav.html",
+      "type": "text/html",
+      "rel": "contents" }
   ],
 }
 
 ```
 
-Ah, now we have information on the name, scope, and sequence of the web publication, and can even find a cover image.
+Ah, now we have information on the name, scope, and sequence of the web publication, and can even find a cover image and a table of contents.
 
 
 ## Audio Books
@@ -116,6 +119,48 @@ readingOrder:
     type: "audio/mpeg"
 
 ```
+
+## Digital Sequential Art (Comics/Manga/Bandes Desinees)
+
+This is an interesting area. Many publications can be expressed purely as a sequence of images, and something analagous to the audio approach would work.
+
+But if you start adding features like panel-to-panel navigation and page transitions, this starts to look much more like web publications, where the full power of the open web platform is required.
+
+```yaml
+type: imagebook
+name: "Lysistrata: The Graphic Novel"                                 
+author: "Aristophanes"                       
+narrator: "various"                            
+copyright: "Public Domain"                        
+id: "9780000000011"                                                                                              
+modified: "2018-12-20T16:00:01Z"                                                                                                                         
+resources:
+  - href: "lysistrata_cover.jpg"
+    title: "Lysistrata Cover"
+    type: "image/jpeg"
+    rel: "cover"
+readingOrder:
+  - href: "lysistrata_001.jpg"
+    type: "image/jpeg"   
+  - href: "lysistrata_002.jpg"
+    type: "image/jpeg"
+  - href: "lysistrata_003.jpg"
+    type: "image/jpeg"
+  - href: "lysistrata_004.jpg"
+    type: "image/jpeg"
+  - href: "lysistrata_005.jpg"
+    type: "image/jpeg"
+  - href: "lysistrata_006.jpg"
+    type: "image/jpeg"
+  - href: "lysistrata_007.jpg"
+    type: "image/jpeg"
+  - href: "lysistrata_008.jpg"
+    type: "image/jpeg"
+
+```
+
+As with audio, this could be packaged simply with ZIP. And using YAML rather than JSON eases the authoring burden, and leads to a relatively simple format.
+
 
 ## EPUB
 
@@ -155,9 +200,8 @@ This is the most interesting case, as we have a million or so existing documents
   <itemref idref="chapter-003" />
 </spine>
 </package>
-
-
 ```
+
 
 
 ## Entry pages and the HTML question
