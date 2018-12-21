@@ -20,7 +20,7 @@ But to do all these things, we need information. We really only need to know thr
 
 Maybe it's only two things, boundary and sequence. 
 
-I wonder if it's possible to define a flexible data model for publishing, which can serve as common DNA for many different types of publications. With differing serializations and packaging, can we express everything from EPUB 3 to a futuristic web publication with a relatively simple model? Let's try.
+Might it be possible to define a flexible data model for publishing, which can serve as common DNA for many different types of publications? With differing serializations and packaging, can we express everything from EPUB 3 to a futuristic web publication with a relatively simple model? Let's try.
 
 
 **NOTE:** Nothing here extends the capabilities of the web. We need that, but we don't fully know what we need. We need to experiment, but our experimentation would be facilitated by having an agreed-on data model. Here's the basic info about a publication—there may be hundreds of ways of expressing that with markup and script. We'll likely run into problems with personalization, with pagination, with crafting URLs that point to secondary browsing contexts. Maybe we'll need HTML imports, or other forms of transclusion. But let's all experiment while sharing the fundamental expressions of sequence and boundary that define a publication. 
@@ -39,19 +39,15 @@ More importantly, we find:
 
 *This* is close to what we want. We want to provide a better user experience for publications. We might need help from user agents. We definitely need help from developers.
 
-The Publishing Working Group (PWG) has rejected WAM, but we should reconsider that decision.
+The Publishing Working Group (PWG) has rejected WAM, but we should reconsider that decision. Much of what is written below applies to any manifest file, whether it is identified as a web application manifest or not. However, using WAM gives us the tremendous advantage that the processing model and the nature of the display modes is already defined. We do not have the skills inside the Publishing Working Group to define things in a manner consistent with browser architecture and the web security model. 
 
-**NOTE:** Much of what is written below applies to any manifest file, whether it is identified as a web application manifest or not. However, using WAM gives us the tremendous advantage that the processing model and the nature of the display modes is already defined. We do not have the skills inside the Publishing Working Group to define things in a manner consistent with browser architecture and the web security model. 
-
-**NOTE:** WAM largely exists to allow web apps to be "installed" in the manner of native apps on mobile platforms. In an ideal world, we would be able to add publications to bookshelves, as users want to organize their collections. The similarity between these two concepts is interesting. 
+WAM largely exists to allow web apps to be "installed" in the manner of native apps on mobile platforms. In an ideal world, we would be able to add publications to bookshelves, as users want to organize their collections. The similarity between these two concepts is interesting. 
 
 ## A few words on Metadata, JSON-LD, and schema.org
 
-The design of web publications has been complicated by our desire to use schema.org. We apply unfamiliar names to concepts. We introduce complications (two contexts!). And the end result is that when we paste our work into Google's structured data testing tool, we get hundreds of errors. 
+The design of web publications has been complicated by our desire to use schema.org. We apply unfamiliar names to concepts. We introduce complications (two contexts!). And the end result is that when we paste our work into Google's structured data testing tool, we get hundreds of errors. Our ship founders on the treacherous reefs of RDF. 
 
 We should focus on the structural issues of publications at this early stage. The web has a multiplicity of methods to assign metadata to web pages. Perhaps we can leave this up to authors and developers, or at least not spend much of our time worrying about how titles sort, when we don't know how publications work. 
-
-
 
 ## Web Publications 
 
