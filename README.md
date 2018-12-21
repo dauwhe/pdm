@@ -225,6 +225,14 @@ This seems to imply that an HTML entry page is not needed in the audio case. It 
 <link rel="manifest" href="manifest.json">
 ```
 
+
+|| WPUB/WAM JSON | AUDIO/IMAGE YAML | EPUB OPF XML |
+| ------------- | ------------- | ------------- | ------------- |
+| `link rel=manifest` | yes | no | no |
+| serialization |JSON | YAML | XML |
+| packaging | WICG Packaging | ZIP | OCF 3.X |
+| content | any OWP | replaced elements | EPUB Content Docs |
+
 ## Conversion
 
 - an unzipped EPUB 3 works relatively well on the web if you can start with the `nav` file. If converting EPUB to WPUB, could you convert OPF to WAM/PDM, and add a link to that manifest to the `nav` file, and identify the location of the `nav` file as the URL of the WPUB?
