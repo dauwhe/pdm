@@ -97,22 +97,22 @@ I've flattened their structure a bit, and renamed some things. Their full exampl
 
 ```yaml
 type: audiobook
-name: "Lysistrata"                                 
-author: "Aristophanes"                       
-narrator: "various"                            
+name: "Lysistrata"
+author: "Aristophanes"
+narrator: "various" 
 copyright: "Public Domain"
-publisher: "Librevox"                           
-id: "978000000000X"                                                                                              
-modified: "2018-12-20T16:00:01Z"                                                                                                                         
+publisher: "Librevox"
+id: "978000000000X"
+modified: "2018-12-20T16:00:01Z"
 resources:
   - href: "lysistrata_1207.jpg"
     title: "Lysistrata Cover"
     type: "image/jpeg"
     rel: "cover"
 readingOrder:
-  - href: "lysistrata_110_64kb.mp3"             
-    duration: 3010                                  
-    type: "audio/mpeg"                                                                                        
+  - href: "lysistrata_110_64kb.mp3"
+    duration: 3010
+    type: "audio/mpeg"
   - href: "lysistrata_210_64kb.mp3"
     duration: 1663
     type: "audio/mpeg"
@@ -127,12 +127,12 @@ But if you start adding features like panel-to-panel navigation and page transit
 
 ```yaml
 type: imagebook
-name: "Lysistrata: The Graphic Novel"                                 
-author: "Aristophanes"                       
-narrator: "various"                            
-copyright: "Public Domain"                        
-id: "9780000000011"                                                                                              
-modified: "2018-12-20T16:00:01Z"                                                                                                                         
+name: "Lysistrata: The Graphic Novel"
+author: "Aristophanes and Boulet"
+narrator: "various" 
+copyright: "Public Domain"
+id: "9780000000011"
+modified: "2018-12-20T16:00:01Z"
 resources:
   - href: "lysistrata_cover.jpg"
     title: "Lysistrata Cover"
