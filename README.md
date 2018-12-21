@@ -8,7 +8,7 @@ We hope to define a common data model for all types of digital publications, inc
 
 The publishing world has been making OEBs and EPUBs for twenty years. We have been struggling for four years to write a web publications spec. We  don’t have an audiobook spec, but we need one. We wonder what the future of EPUB is. We struggle to fit in with the web world. 
 
-What we actually want are behaviors. We want a page turn at the end of chapter one to automatically take us to chapter two. We don’t want to have to press "play" for every track of an audiobook. We want search to work across a whole publication, regardless of how many files. We want a different user interface/display mode when we’re reading a publication. We want to bundle up all the pieces of a publication into a single file and send them to our friends, or our distributor. We want to be able to easily create, edit, and understand our publications.
+What we actually want are behaviors. We want a page turn at the end of chapter one to automatically take us to the start of chapter two. We don’t want to have to press "play" for every track of an audiobook. We want search to work across a whole publication, regardless of how many files. We want a different user interface/display mode when we’re reading a publication. We want to bundle up all the pieces of a publication into a single file and send them to our friends, or our distributor. We want to be able to easily create, edit, and understand our publications.
 
 But to do all these things, we need information. We really only need to know three things:
 
@@ -87,18 +87,32 @@ Our data model, of course, does not define packaging formats for publications. B
 
 We have a few core concepts, which we can express differently in different contexts. 
 
-### Data items
+### Data items (structural)
 
 
-| JSON for WPUB | YAML for Audio/Image | XML for EPUB |
-| ------------- | ------------- | ------------- |
-| readingOrder | readingOrder | spine |
-| readingOrder | readingOrder | spine |
-| resources | resources | manifest minus spine |
-| name | name | dc:title |
-| modified | modified | dc:modified |
-| id | id | dc:identifier |
-| type | type | media-type |
+|Concept| JSON for WPUB | YAML for Audio/Image | XML for EPUB |
+|| ------------- | ------------- | ------------- |
+| sequence | readingOrder | readingOrder | spine |
+| list of resources | resources | resources | manifest minus spine |
+| location of resources | href | href | href |
+| media type of resource | media-type | media-type | media-type |
+| relationship to publication | rel | rel | rel |
+| textual label of resource | title | title | n/a |
+
+
+### Other metadata (to facilitate conversion between formats)
+
+|Concept| JSON for WPUB | YAML for Audio/Image | XML for EPUB |
+|| ------------- | ------------- | ------------- |
+| title | name | name | dc:title |
+| last modified date | modified | modified | dc:modified |
+| identifier | identifier | identifier | dc:identifier |
+| author | author | author | dc:creator/@role |
+| narrator | narrator | narrator | dc:creator/@role |
+| publisher | publisher | publisher | dc:publisher |
+| duration | duration | duration | ?? |
+
+
 
 ### How to construct formats
 
@@ -166,20 +180,20 @@ author: "Aristophanes"
 narrator: "various" 
 copyright: "Public Domain"
 publisher: "Librevox"
-id: "978000000000X"
+identifier: "978000000000X"
 modified: "2018-12-20T16:00:01Z"
 resources:
   - href: "lysistrata_1207.jpg"
     title: "Lysistrata Cover"
-    type: "image/jpeg"
+    media-type: "image/jpeg"
     rel: "cover"
 readingOrder:
   - href: "lysistrata_110_64kb.mp3"
     duration: 3010
-    type: "audio/mpeg"
+    media-type: "audio/mpeg"
   - href: "lysistrata_210_64kb.mp3"
     duration: 1663
-    type: "audio/mpeg"
+    media-type: "audio/mpeg"
 
 ```
 
@@ -193,32 +207,31 @@ But if you start adding features like panel-to-panel navigation and page transit
 type: imagebook
 name: "Lysistrata: The Graphic Novel"
 author: "Aristophanes and Boulet"
-narrator: "various" 
 copyright: "Public Domain"
-id: "9780000000011"
+identifier: "9780000000011"
 modified: "2018-12-20T16:00:01Z"
 resources:
   - href: "lysistrata_cover.jpg"
     title: "Lysistrata Cover"
-    type: "image/jpeg"
+    media-type: "image/jpeg"
     rel: "cover"
 readingOrder:
   - href: "lysistrata_001.jpg"
-    type: "image/jpeg"   
+    media-type: "image/jpeg"   
   - href: "lysistrata_002.jpg"
-    type: "image/jpeg"
+    media-type: "image/jpeg"
   - href: "lysistrata_003.jpg"
-    type: "image/jpeg"
+    media-type: "image/jpeg"
   - href: "lysistrata_004.jpg"
-    type: "image/jpeg"
+    media-type: "image/jpeg"
   - href: "lysistrata_005.jpg"
-    type: "image/jpeg"
+    media-type: "image/jpeg"
   - href: "lysistrata_006.jpg"
-    type: "image/jpeg"
+    media-type: "image/jpeg"
   - href: "lysistrata_007.jpg"
-    type: "image/jpeg"
+    media-type: "image/jpeg"
   - href: "lysistrata_008.jpg"
-    type: "image/jpeg"
+    media-type: "image/jpeg"
 
 ```
 
@@ -244,7 +257,7 @@ This is the most interesting case, as we have a million or so existing documents
   <item id="chapter-001"  href="chapter-001.xhtml" media-type="application/xhtml+xml"/>
   <item id="chapter-002"  href="chapter-002.xhtml" media-type="application/xhtml+xml"/>
   <item id="chapter-003"  href="chapter-003.xhtml" media-type="application/xhtml+xml"/>
-  <item id="cover-image"  href="cover.jpg" media-type="image/jpeg properties="cover-image"/>
+  <item id="cover-image"  href="cover.jpg" media-type="image/jpeg" properties="cover-image"/>
   <item id="nav"  href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
 </manifest>
 <spine>
