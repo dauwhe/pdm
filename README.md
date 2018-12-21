@@ -71,9 +71,23 @@ This seems to imply that an HTML entry page is not needed in the audio case. It 
 <link rel="manifest" href="manifest.json">
 ```
 
+### Packaging
+
+Our data model, of course, does not define packaging formats for publications. But we need to be aware of the various options, as information in our data model might help facilitate packaging, and many formats will ultimately be packaged.
+
+ - The forthcoming(?) [Web Packaging](https://github.com/WICG/webpackage) spec from WICG will have a dependency on WAM. Having a WPUB manifest based on WAM might help. Of course, this spec will require modifications to support our use cases. Publications don't expire after seven days!
+ 
+ - David Singer is proposing a packaging format based on MPEG. 
+ 
+ - Just using ZIP plus a well-known location for the manifest seems to work for audio books and some image-only publications, which don’t need the additional complexity of OCF.
+ 
+ - EPUB can continue to use OCF.
+
 ## Data model
 
 We have a few core concepts, which we can express differently in different contexts. 
+
+### Data items
 
 
 | JSON for WPUB | YAML for Audio/Image | XML for EPUB |
@@ -85,6 +99,16 @@ We have a few core concepts, which we can express differently in different conte
 | modified | modified | dc:modified |
 | id | id | dc:identifier |
 | type | type | media-type |
+
+### How to construct formats
+
+|| JSON for WPUB | YAML for Audio/Image | XML for EPUB |
+| ------------- | ------------- | ------------- | ------------- |
+| HTML with manifest? | yes | no | no |
+| serialization |JSON | YAML | XML |
+| packaging | WICG Packaging | ZIP | OCF 3.X |
+| content | any OWP | audio, video, images | EPUB Content Docs |
+
 
 
 ## Examples
@@ -239,12 +263,6 @@ This is the most interesting case, as we have a million or so existing documents
 
 
 
-|| WPUB/WAM JSON | AUDIO/IMAGE YAML | EPUB OPF XML |
-| ------------- | ------------- | ------------- | ------------- |
-| `link rel=manifest` | yes | no | no |
-| serialization |JSON | YAML | XML |
-| packaging | WICG Packaging | ZIP | OCF 3.X |
-| content | any OWP | replaced elements | EPUB Content Docs |
 
 ## Conversion
 
@@ -256,15 +274,7 @@ This is the most interesting case, as we have a million or so existing documents
 
 - Any conversion to or from EPUB would ignore some less-used features of EPUB, such as multiple renditions, or archaic features like the NCX. We would not aim to preserver internal IDs in the package file.
 
-## Packaging
 
- - The forthcoming(?) [Web Packaging](https://github.com/WICG/webpackage) spec from WICG will have a dependency on WAM. Having a WPUB manifest based on WAM will help.
- 
- - David Singer is proposing a packaging format based on MPEG. 
- 
- - Just using ZIP plus a well-known location for the manifest seems to work for audio books and some image-only publications, which don’t need the additional complexity of OCF.
- 
- - EPUB can continue to use OCF.
  
 ## The future of EPUB
 
