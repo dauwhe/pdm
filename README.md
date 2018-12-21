@@ -87,7 +87,7 @@ Our data model, of course, does not define packaging formats for publications. B
 
 We have a few core concepts, which we can express differently in different contexts. 
 
-### Data items (structural)
+### Structural metadata
 
 
 |Concept| JSON for WPUB | YAML for Audio/Image | XML for EPUB |
@@ -100,7 +100,7 @@ We have a few core concepts, which we can express differently in different conte
 | textual label of resource | title | title | n/a |
 
 
-### Other metadata (to facilitate conversion between formats)
+### General metadata (to facilitate conversions between formats)
 
 |Concept| JSON for WPUB | YAML for Audio/Image | XML for EPUB |
 | ------------- | ------------- | ------------- | ------------- |
@@ -112,16 +112,17 @@ We have a few core concepts, which we can express differently in different conte
 | publisher | publisher | publisher | dc:publisher |
 | duration | duration | duration | ?? |
 
-
-
-### How to construct formats
-
-|| JSON for WPUB | YAML for Audio/Image | XML for EPUB |
+### Audio-focused metadata 
+|Concept| JSON for WPUB | YAML for Audio/Image | XML for EPUB |
 | ------------- | ------------- | ------------- | ------------- |
-| HTML with manifest? | yes | no | no |
-| serialization |JSON | YAML | XML |
-| packaging | WICG Packaging? | ZIP | OCF 3.X |
-| content | any OWP | audio, video, images | EPUB Content Docs |
+| narrator | narrator | narrator | dc:creator/@role |
+| duration | duration | duration | ?? |
+| size in bytes | size | size | ?? |
+| license? | license | license | ?? |
+| md5 hash of contents | md5 | md5 | ?? |
+| abridgment | abridgment | abridgment | ?? |
+
+
 
 
 
