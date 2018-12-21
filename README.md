@@ -106,7 +106,7 @@ We have a few core concepts, which we can express differently in different conte
 | ------------- | ------------- | ------------- | ------------- |
 | HTML with manifest? | yes | no | no |
 | serialization |JSON | YAML | XML |
-| packaging | WICG Packaging | ZIP | OCF 3.X |
+| packaging | WICG Packaging? | ZIP | OCF 3.X |
 | content | any OWP | audio, video, images | EPUB Content Docs |
 
 
@@ -256,37 +256,14 @@ This is the most interesting case, as we have a million or so existing documents
 ```
 
 
+## Conversions
 
-
-
-
-
-
-
-
-## Conversion
-
-- an unzipped EPUB 3 works relatively well on the web if you can start with the `nav` file. If converting EPUB to WPUB, could you convert OPF to WAM/PDM, and add a link to that manifest to the `nav` file, and identify the location of the `nav` file as the URL of the WPUB?
-
-- WPUB to EPUB would involve creating an OPF file from the manifest
-
-- Audio to WPUB would involve YAML to JSON, and creating an HTML entry page with a link to the new manifest.
+- An unzipped EPUB 3 works relatively well on the web if you can start with the `nav` file. If converting EPUB to WPUB, you could convert OPF to WAM/PDM, add a link to that manifest to the `nav` file, and identify the location of the `nav` file as the URL of the WPUB. 
 
 - Any conversion to or from EPUB would ignore some less-used features of EPUB, such as multiple renditions, or archaic features like the NCX. We would not aim to preserver internal IDs in the package file.
 
+- WPUB to EPUB would involve creating an OPF file from the manifest.
 
- 
-## The future of EPUB
+- Audio to WPUB would involve YAML to JSON, and creating an HTML entry page with a link to the new manifest or (preferably) an embedded manifest. 
 
-EPUB is really three specs:
-
-1. [Content documents](http://w3c.github.io/publ-epub-revision/epub32/spec/epub-contentdocs.html). What HTML and CSS can be used?
-
-2. [OPF]((http://w3c.github.io/publ-epub-revision/epub32/spec/epub-packages.html). The `package` file describes structural and bibliographic metadata. 
-
-3. [OCF](https://w3c.github.io/publ-epub-revision/epub32/spec/epub-ocf.html). How to package it?
-
-Perhaps the primary differentiation between WPUB and EPUB is packaging.
-
-There’s no reason we couldn’t update EPUB to use, for example, HTML in addition to XHTML. Existing content would not become invalid.
 
