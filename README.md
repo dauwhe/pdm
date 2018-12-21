@@ -6,9 +6,9 @@ We hope to define a common data model for all types of digital publications, inc
 
 ## Introduction
 
-The publishing world has been making OEBs and EPUBs for twenty years. We have been struggling for four years to write a web publications spec. We  don't have an audiobook spec, but we need one. We wonder what the future of EPUB is. We struggle to fit in with the web world. 
+The publishing world has been making OEBs and EPUBs for twenty years. We have been struggling for four years to write a web publications spec. We  don’t have an audiobook spec, but we need one. We wonder what the future of EPUB is. We struggle to fit in with the web world. 
 
-What we actually want are behaviors. We want a page turn at the end of chapter one to automatically take us to chapter two. We don't want to have to press "play" for every track of an audiobook. We want search to work across a whole publication, regardless of how many files. We want a different user interface/display mode when we're reading a publication. We want to bundle up all the pieces of a publication into a single file and send them to our friends, or our distributor. We want to be able to easily create, edit, and understand our publications.
+What we actually want are behaviors. We want a page turn at the end of chapter one to automatically take us to chapter two. We don’t want to have to press "play" for every track of an audiobook. We want search to work across a whole publication, regardless of how many files. We want a different user interface/display mode when we’re reading a publication. We want to bundle up all the pieces of a publication into a single file and send them to our friends, or our distributor. We want to be able to easily create, edit, and understand our publications.
 
 But to do all these things, we need information. We really only need to know three things:
 
@@ -16,20 +16,20 @@ But to do all these things, we need information. We really only need to know thr
 
 2. what comes next?
 
-3. what's part of the publication, and what isn't?
+3. what’s part of the publication, and what isn’t?
 
-Maybe it's only two things, boundary and sequence. 
+Maybe it’s only two things, boundary and sequence. 
 
-Might it be possible to define a flexible data model for publishing, which can serve as common DNA for many different types of publications? With differing serializations and packaging, can we express everything from EPUB 3 to a futuristic web publication with a relatively simple model? Let's try.
+Might it be possible to define a flexible data model for publishing, which can serve as common DNA for many different types of publications? With differing serializations and packaging, can we express everything from EPUB 3 to a futuristic web publication with a relatively simple model? Let’s try.
 
 
-**NOTE:** Nothing here extends the capabilities of the web. We need that, but we don't fully know what we need. We need to experiment, but our experimentation would be facilitated by having an agreed-on data model. Given the basic information about a publication, there may be hundreds of ways of expressing that with markup and script. We'll likely run into problems with personalization, with pagination, with crafting URLs that point to secondary browsing contexts. Maybe we'll need HTML imports, or other forms of transclusion. But let's all experiment while sharing the fundamental expressions of sequence and boundary that define a publication. 
+**NOTE:** Nothing here extends the capabilities of the web. We need that, but we don’t fully know what we need. We need to experiment, but our experimentation would be facilitated by having an agreed-on data model. Given the basic information about a publication, there may be hundreds of ways of expressing that with markup and script. We’ll likely run into problems with personalization, with pagination, with crafting URLs that point to secondary browsing contexts. Maybe we’ll need HTML imports, or other forms of transclusion. But let’s all experiment while sharing the fundamental expressions of sequence and boundary that define a publication. 
 
 ## The existing landscape and web application manifest.
 
 This work does not happen in a vacuum. EPUB is a billion-dollar industry. The web is part of the very fabric of our lives. We must reuse existing technology as much as possible.
 
-To a large extent, we are trying to express metadata about a collection of web resources. A collection of web resources might be a web site, or a web application. And there is an existing effort to express metadata about web applications, namely the [Web Application Manifest](https://w3c.github.io/manifest/) spec, which we'll refer to as WAM: 
+To a large extent, we are trying to express metadata about a collection of web resources. A collection of web resources might be a web site, or a web application. And there is an existing effort to express metadata about web applications, namely the [Web Application Manifest](https://w3c.github.io/manifest/) spec, which we’ll refer to as WAM: 
 
 > This specification defines a JSON-based manifest file that provides developers with a centralized place to put metadata associated with a web application.
 
@@ -45,13 +45,13 @@ WAM, in its present form, largely exists to allow web apps to be "installed" in 
 
 ## A few words on Metadata, JSON-LD, and schema.org
 
-The design of web publications has been complicated by our desire to use schema.org. We apply unfamiliar names to concepts. We introduce complications (two contexts!). And the end result is that when we paste our work into Google's structured data testing tool, we get hundreds of errors. Our ship founders on the treacherous reefs of RDF. 
+The design of web publications has been complicated by our desire to use [schema.org](https://schema.org). We apply unfamiliar names to concepts. We introduce complications (two contexts!). And the end result is that when we paste our work into Google’s structured data testing tool, we get hundreds of errors. Our ship founders on the treacherous reefs of RDF. 
 
-We should focus on the structural issues of publications at this early stage. The web has a multiplicity of methods to assign metadata to web pages. Perhaps we can leave this up to authors and developers, or at least not spend much of our time worrying about how titles sort, when we don't know how publications work. 
+We should focus on the structural issues of publications at this early stage. The web has a multiplicity of methods to assign metadata to web pages. Perhaps we can leave this up to authors and developers, or at least not spend much of our time worrying about how titles sort, when we don’t know how publications work. 
 
 ## Web Publications 
 
-What is a web publication? Right now it's essentially a URL that points to an HTML resource that contains a manifest or a link to a manifest. The web publication manifest is currently defined as JSON-LD with a schema.org context as well as a custom context. Instead, let's just start with a very simple WAM:
+What is a web publication? Right now it’s essentially a URL that points to an HTML resource that contains a manifest or a link to a manifest. The web publication manifest is currently defined as JSON-LD with a schema.org context as well as a custom context. Instead, let’s just start with a very simple WAM:
 
 
 ```json
@@ -91,9 +91,9 @@ Ah, now we have information on the name, scope, and sequence of the web publicat
 
 ## Audio Books
 
-Can we use a similar data model for audio books? In a packaged audio book, we don't really have a use case for direct display on the web, so we don't need HTML. [Blackstone Audio](https://github.com/blackstoneaudio/audiobook-spec) proposed a simple model using YAML; perhaps that could be slightly rewritten to be not-incompatible with WAM, and use some of the same ideas as WPUB.
+Can we use a similar data model for audio books? In a packaged audio book, we don’t really have a use case for direct display on the web, so we don’t need HTML. [Blackstone Audio](https://github.com/blackstoneaudio/audiobook-spec) proposed a simple model using YAML; perhaps that could be slightly rewritten to be not-incompatible with WAM, and use some of the same ideas as WPUB.
 
-I've flattened their structure a bit, and renamed some things. Their full example also includes a lot of additional information that should be expressible in this model, but I've removed to show a simpler example. 
+I’ve flattened their structure a bit, and renamed some things. Their full example also includes a lot of additional information that should be expressible in this model, but I’ve removed to show a simpler example. 
 
 ```yaml
 type: audiobook
@@ -209,7 +209,7 @@ We mentioned that one of the big questions is, "where do I start?"
 
  - WAM has `start_url`.
 
- - A web publication has a URL, although it's not quite clear what happens if you go to that URL and find a manifest with the first item in the reading order being a different URL.
+ - A web publication has a URL, although it’s not quite clear what happens if you go to that URL and find a manifest with the first item in the reading order being a different URL.
 
  - EPUB has `container.xml` pointing to an OPF file which contains a first `spine` item.
 
@@ -245,7 +245,7 @@ This seems to imply that an HTML entry page is not needed in the audio case. It 
  
  - David Singer is proposing a packaging format based on MPEG. 
  
- - Just using ZIP plus a well-known location for the manifest seems to work for audio books and some image-only publications, which don't need the additional complexity of OCF.
+ - Just using ZIP plus a well-known location for the manifest seems to work for audio books and some image-only publications, which don’t need the additional complexity of OCF.
  
  - EPUB can continue to use OCF.
  
@@ -261,5 +261,5 @@ EPUB is really three specs:
 
 Perhaps the primary differentiation between WPUB and EPUB is packaging.
 
-There's no reason we couldn't update EPUB to use, for example, HTML in addition to XHTML. Existing content would not become invalid.
+There’s no reason we couldn’t update EPUB to use, for example, HTML in addition to XHTML. Existing content would not become invalid.
 
