@@ -120,9 +120,9 @@ readingOrder:
 
 ```
 
-## Digital Sequential Art (Comics/Manga/Bandes Desinees)
+## Digital Sequential Art (Comics/Manga/Bandes Dessinées)
 
-This is an interesting area. Many publications can be expressed purely as a sequence of images, and something analagous to the audio approach would work.
+This is an interesting area. Many publications can be expressed purely as a sequence of images, and something analogous to the audio approach would work.
 
 But if you start adding features like panel-to-panel navigation and page transitions, this starts to look much more like web publications, where the full power of the open web platform is required.
 
