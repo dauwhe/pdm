@@ -2,7 +2,7 @@
 
 ## Abstract
 
-We hope to define a common data model for all types of digital publications, including audio books, digital sequential art, the existing EPUB format, and what we might call web publications. We focus on structural metadata rather than bibliographic metadata, and do not seek to define behaviors or interfaces, but only to provide a minimal set of data to allow such interfaces and affordances to be provided by developers and user agents.
+We hope to define a common data model for all types of digital publications, including audio books, digital sequential art (comics/manga/bandes dessinées), the existing EPUB format, and what we might call web publications. We focus on structural metadata rather than bibliographic metadata, and do not seek to define behaviors or interfaces, but only to provide a minimal set of data to allow such interfaces and affordances to be provided by developers and user agents.
 
 ## Introduction
 
@@ -25,7 +25,10 @@ Might it be possible to define a flexible data model for publishing, which can s
 
 **NOTE:** Nothing here extends the capabilities of the web. We need that, but we don’t fully know what we need. We need to experiment, but our experimentation would be facilitated by having an agreed-on data model. Given the basic information about a publication, there may be hundreds of ways of expressing that with markup and script. We’ll likely run into problems with personalization, with pagination, with crafting URLs that point to secondary browsing contexts. Maybe we’ll need HTML imports, or other forms of transclusion. But let’s all experiment while sharing the fundamental expressions of sequence and boundary that define a publication. 
 
-## The existing landscape and web application manifest.
+
+## Design Choices
+
+### Relationship to web application manifest
 
 This work does not happen in a vacuum. EPUB is a billion-dollar industry. The web is part of the very fabric of our lives. We must reuse existing technology as much as possible.
 
@@ -43,13 +46,50 @@ The Publishing Working Group (PWG) has rejected WAM, but we should reconsider th
 
 WAM, in its present form, largely exists to allow web apps to be "installed" in the manner of native apps on mobile platforms. In an ideal world, we would be able to add publications to bookshelves, as users want to organize their collections. The similarity between these two concepts is interesting. 
 
-## A few words on Metadata, JSON-LD, and schema.org
+### JSON-LD, schema.org, and metadata.
 
 The design of web publications has been complicated by our desire to use [schema.org](https://schema.org). We apply unfamiliar names to concepts. We introduce complications (two contexts!). And the end result is that when we paste our work into Google’s structured data testing tool, we get hundreds of errors. Our ship founders on the treacherous reefs of RDF. 
 
-We should focus on the structural issues of publications at this early stage. The web has a multiplicity of methods to assign metadata to web pages. Perhaps we can leave this up to authors and developers, or at least not spend much of our time worrying about how titles sort, when we don’t know how publications work. 
+We should focus on the structural issues of publications at this early stage. The web has a multiplicity of methods to assign metadata to web pages. Perhaps we can leave this up to authors and developers, or at least not spend much of our time worrying about how titles sort, when we don’t know how publications work.
 
-## Web Publications 
+
+### Entry pages and the need for HTML.
+
+We mentioned that one of the big questions is, "where do I start?"
+
+ - WAM has `start_url`.
+
+ - A web publication has a URL, although it’s not quite clear what happens if you go to that URL and find a manifest with the first item in the reading order being a different URL.
+
+ - EPUB has `container.xml` pointing to an OPF file which contains a first `spine` item.
+
+ - Audiobooks are more purely sequential; it seems that they would just start at the first audio resource. The same might hold true for manga/comics/BD.
+ 
+This seems to imply that an HTML entry page is not needed in the audio case. It is necessary for WPUB.
+
+```html
+<link rel="manifest" href="manifest.json">
+```
+
+## Data model
+
+We have a few core concepts, which we can express differently in different contexts. 
+
+
+| JSON for WPUB | YAML for Audio/Image | XML for EPUB |
+| ------------- | ------------- | ------------- |
+| readingOrder | readingOrder | spine |
+| readingOrder | readingOrder | spine |
+| resources | resources | manifest minus spine |
+| name | name | dc:title |
+| modified | modified | dc:modified |
+| id | id | dc:identifier |
+| type | type | media-type |
+
+
+## Examples
+
+### Web Publications 
 
 What is a web publication? Right now it’s essentially a URL that points to an HTML resource that contains a manifest or a link to a manifest. The web publication manifest is currently defined as JSON-LD with a schema.org context as well as a custom context. Instead, let’s just start with a very simple WAM:
 
@@ -89,7 +129,7 @@ We can borrow from the work of PWG to add `readingOrder` and `resources`.
 Ah, now we have information on the name, scope, and sequence of the web publication, and can even find a cover image and a table of contents.
 
 
-## Audio Books
+### Audio Books
 
 Can we use a similar data model for audio books? In a packaged audio book, we don’t really have a use case for direct display on the web, so we don’t need HTML. [Blackstone Audio](https://github.com/blackstoneaudio/audiobook-spec) proposed a simple model using YAML; perhaps that could be slightly rewritten to be not-incompatible with WAM, and use some of the same ideas as WPUB.
 
@@ -119,7 +159,7 @@ readingOrder:
 
 ```
 
-## Digital Sequential Art (Comics/Manga/Bandes Dessinées)
+### Digital Sequential Art (Comics/Manga/Bandes Dessinées)
 
 This is an interesting area. Many publications can be expressed purely as a sequence of images, and something analogous to the audio approach would work.
 
@@ -161,20 +201,10 @@ readingOrder:
 As with audio, this could be packaged simply with ZIP. And using YAML rather than JSON eases the authoring burden, and leads to a relatively simple format.
 
 
-## EPUB
+### EPUB
 
-This is the most interesting case, as we have a million or so existing documents, and a whole industry, to worry about. Can we map our JSON/YAML to OPF? Yes!
+This is the most interesting case, as we have a million or so existing documents, and a whole industry, to worry about. Here's an ordinary package file for a book:
 
-
-| WPUB/WAM JSON | AUDIO YAML | EPUB OPF XML |
-| ------------- | ------------- | ------------- |
-| readingOrder | readingOrder | spine |
-| readingOrder | readingOrder | spine |
-| resources | resources | manifest minus spine |
-| name | name | dc:title |
-| modified | modified | dc:modified |
-| id | id | dc:identifier |
-| type | type | media-type |
 
 
 ```xml
@@ -203,23 +233,10 @@ This is the most interesting case, as we have a million or so existing documents
 
 
 
-## Entry pages and the HTML question
 
-We mentioned that one of the big questions is, "where do I start?"
 
- - WAM has `start_url`.
 
- - A web publication has a URL, although it’s not quite clear what happens if you go to that URL and find a manifest with the first item in the reading order being a different URL.
 
- - EPUB has `container.xml` pointing to an OPF file which contains a first `spine` item.
-
- - Audiobooks are more purely sequential; it seems that they would just start at the first audio resource. 
- 
-This seems to imply that an HTML entry page is not needed in the audio case. It is necessary for WPUB.
-
-```html
-<link rel="manifest" href="manifest.json">
-```
 
 
 || WPUB/WAM JSON | AUDIO/IMAGE YAML | EPUB OPF XML |
