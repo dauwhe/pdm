@@ -194,9 +194,9 @@ This is the most interesting case, as we have a million or so existing documents
   <item id="nav"  href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
 </manifest>
 <spine>
-  <itemref idref="chapter-001" />
-  <itemref idref="chapter-002" />
-  <itemref idref="chapter-003" />
+  <itemref idref="chapter-001"/>
+  <itemref idref="chapter-002"/>
+  <itemref idref="chapter-003"/>
 </spine>
 </package>
 ```
@@ -209,7 +209,7 @@ We mentioned that one of the big questions is, "where do I start?"
 
  - WAM has `start_url`.
 
- - A web publication has a URL, although it's not quite clear if you go to that URL and find a manifest with the first item in the reading order being a different URL.
+ - A web publication has a URL, although it's not quite clear what happens if you go to that URL and find a manifest with the first item in the reading order being a different URL.
 
  - EPUB has `container.xml` pointing to an OPF file which contains a first `spine` item.
 
@@ -243,29 +243,23 @@ This seems to imply that an HTML entry page is not needed in the audio case. It 
 
  - The forthcoming(?) [Web Packaging](https://github.com/WICG/webpackage) spec from WICG will have a dependency on WAM. Having a WPUB manifest based on WAM will help.
  
- - A very simple ZIP + well-known location for manifest (or only one .yaml or .json file) seems to work for audio books, which don't need the additional complexity of OCF.
+ - David Singer is proposing a packaging format based on MPEG. 
  
- - EPUB can continue to use OCF for now.
+ - Just using ZIP plus a well-known location for the manifest seems to work for audio books and some image-only publications, which don't need the additional complexity of OCF.
+ 
+ - EPUB can continue to use OCF.
  
 ## The future of EPUB
 
 EPUB is really three specs:
 
-1. Content documents. What HTML and CSS can be use?
+1. [Content documents](http://w3c.github.io/publ-epub-revision/epub32/spec/epub-contentdocs.html). What HTML and CSS can be used?
 
-2. OPF. The `package` file describes structural and bibliographic metadata. 
+2. [OPF]((http://w3c.github.io/publ-epub-revision/epub32/spec/epub-packages.html). The `package` file describes structural and bibliographic metadata. 
 
-3. OCF. How to package it?
+3. [OCF](https://w3c.github.io/publ-epub-revision/epub32/spec/epub-ocf.html). How to package it?
 
-Perhaps the primary differentiation between WPUB and EPUB is packaging?
+Perhaps the primary differentiation between WPUB and EPUB is packaging.
 
 There's no reason we couldn't update EPUB to use, for example, HTML in addition to XHTML. Existing content would not become invalid.
-
-
-
-
-
-
-
-
 
