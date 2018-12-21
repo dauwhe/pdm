@@ -2,10 +2,10 @@
 
 ## Introduction
 
-The publishing world has been making EPUBs for a dozen years. We have been struggling for four years to write a web publications spec. We  don't have an audiobook spec, but we need one. We wonder what the future of EPUB is. We struggle to fit in with the web world. 
+The publishing world has been making OEBs and EPUBs for twenty years. We have been struggling for four years to write a web publications spec. We  don't have an audiobook spec, but we need one. We wonder what the future of EPUB is. We struggle to fit in with the web world. 
 
 
-What we actually want are behaviors. We want a page turn at the end of chapter 1 to automatically take us to page 2. We don't want to press "play" for every track of an audiobook. We want search to work across a whole publication. We want a different user interface/display mode when we're reading a publication. We want to bundle up all the pieces of a publication into a single file and send them to our friends, or our distributor. We want to be able to easily edit and understand our publications.
+What we actually want are behaviors. We want a page turn at the end of chapter one to automatically take us to chapter two. We don't want to have to press "play" for every track of an audiobook. We want search to work across a whole publication, regardless of how many files. We want a different user interface/display mode when we're reading a publication. We want to bundle up all the pieces of a publication into a single file and send them to our friends, or our distributor. We want to be able to easily create, edit, and understand our publications.
 
 But to do all these things, we need information. We really only need to know three things:
 
@@ -19,38 +19,46 @@ Maybe it's only two things, boundary and sequence.
 
 I wonder if it's possible to define a flexible data model for publishing, which can serve as common DNA for many different types of publications. With differing serializations and packaging, can we express everything from EPUB 3 to a futuristic web publication with a relatively simple model? Let's try.
 
+
+**NOTE:** Nothing here extends the capabilities of the web. We need that, but we don't fully know what we need. We need to experiment, but our experimentation would be facilitated by having an agreed-on data model. Here's the basic info about a publication—there may be hundreds of ways of expressing that with markup and script. I suspect we'll run into problems with personalization, with pagination, with crafting URLs that point to secondary browsing contexts. Maybe we'll need HTML imports, or other forms of transclusion. But let's all experiment while sharing the fundamental expressions of sequence and boundary that define a publication. 
+
 ## The existing landscape and web application manifest.
 
 This work does not happen in a vacuum. EPUB is a billion-dollar industry. The web is part of the very fabric of our lives. We must reuse existing technology as much as possible.
 
-To a large extent, we are trying to express metadata about a collection of web resources. A collection of web resources might be a web site, or a web application. And there is an existing effort to express metadata about web applications, namely the web application manifest spec. 
+To a large extent, we are trying to express metadata about a collection of web resources. A collection of web resources might be a web site, or a web application. And there is an existing effort to express metadata about web applications, namely the [Web Application Manifest](https://w3c.github.io/manifest/) spec, which we'll refer to as WAM: 
 
 > This specification defines a JSON-based manifest file that provides developers with a centralized place to put metadata associated with a web application.
 
-More importantly, we find
+More importantly, we find:
 
 > Using this metadata, user agents can provide developers with means to create user experiences that are more comparable to that of a native application.
 
 *This* is close to what we want. We want to provide a better user experience for publications. We might need help from user agents. We definitely need help from developers.
 
-The PWG rejected WAM, but I think we must reconsider that decision.
+The Publishing Working Group (PWG) has rejected WAM, but we should reconsider that decision.
 
-## WPUB
+**NOTE:** Much of what is written below applies to any manifest file, whether it is identified as a web application manifest or not. However, using WAM gives us the tremendous advantage that the processing model and the nature of the display modes is already defined. We do not have the skills inside the Publishing Working Group to define things in a manner consistent with browser architecture and the web security model. 
 
-What is a web publication? Right now it's essentially a URL that points to an HTML resource that contains a manifest or a link to a manifest.
+**NOTE:** WAM largely exists to allow web apps to be "installed" in the manner of native apps on mobile platforms. In an ideal world, we would be able to add publications to bookshelves, as users want to organize their collections. The similarity between these two concepts is interesting. 
+
+## A few words on Metadata, JSON-LD, and schema.org
+
+The design of web publications has been complicated by our desire to use schema.org. We apply unfamiliar names to concepts. We introduce complications (two contexts!). And the end result is that I paste our work into Google's structured data testing tool, and get hundreds of errors. 
+
+We should focus on the structural issues of publications at this early stage. The web has a multiplicity of methods to assign metadata to web pages. Perhaps we can leave this up to authors and developers, or at least not spend much of our time worrying about how titles sort, when we don't know how publications work. 
 
 
-We can start with WAM:
+
+## Web Publications 
+
+What is a web publication? Right now it's essentially a URL that points to an HTML resource that contains a manifest or a link to a manifest. The web publication manifest is currently defined as JSON-LD with a schema.org context as well as a custom context. Instead, let's just start with a very simple WAM:
+
 
 ```json
 {
-  "name": "To the Lighthouse",
-  "start_url": "https://publishing.example.com/978000000000X/",
-  "description": "The classic novel by Virginia Woolf",
-  "icons": [{
-    "src": "images/icon.png",
-    "sizes": "192x192"
-  }]
+  "name": "Lysistrata",
+  "start_url": "https://publisher.example.com/978000000000X/"
 }
 ```
 
@@ -59,6 +67,9 @@ We can borrow from the work of PWG to add `readingOrder` and `resources`.
 
 ```json
 {
+
+  "name": "Lysistrata",
+  "start_url": "https://publisher.example.com/978000000000X/",
   "readingOrder": [
     { "href": "chapter-001.html" },
     { "href": "chapter-002.html" },
@@ -73,47 +84,42 @@ We can borrow from the work of PWG to add `readingOrder` and `resources`.
 
 ```
 
+Ah, now we have information on the name, scope, and sequence of the web publication, and can even find a cover image.
+
+
 ## Audio Books
 
-Perhaps more interestingly, can we use a similar data model for audio books? In a packaged audio book, we don't really have a use case for direct display on the web, so we don't need HTML. [Blackstone Audio](https://github.com/blackstoneaudio/audiobook-spec) proposed a simple model using YAML; perhaps that could be slightly rewritten to be not-incompatible with WAM, and use some of the same ideas as WPUB.
+Can we use a similar data model for audio books? In a packaged audio book, we don't really have a use case for direct display on the web, so we don't need HTML. [Blackstone Audio](https://github.com/blackstoneaudio/audiobook-spec) proposed a simple model using YAML; perhaps that could be slightly rewritten to be not-incompatible with WAM, and use some of the same ideas as WPUB.
 
 I've flattened their structure a bit, and renamed some things. Their full example also includes a lot of additional information that should be expressible in this model, but I've removed to show a simpler example. 
 
 ```yaml
 type: audiobook
-name: "To The Lighthouse"                                 
-author: "Virginia Woolf"                       
-narrator: "Doris Grau"                                 
-copyright: "Blackstone Publishing, Inc."                            
-id: "9781234567890"                                                                                              
-modified: "2012-08-14T16:49:59+00:00"                                                                                                                         
+name: "Lysistrata"                                 
+author: "Aristophanes"                       
+narrator: "various"                            
+copyright: "Public Domain"
+publisher: "Librevox"                           
+id: "978000000000X"                                                                                              
+modified: "2018-12-20T16:00:01Z"                                                                                                                         
 resources:
-  - href: "cover.jpg"
-    title: "To The Lighthouse Cover"
+  - href: "lysistrata_1207.jpg"
+    title: "Lysistrata Cover"
     type: "image/jpeg"
     rel: "cover"
 readingOrder:
-  - href: "6729-001.m4a"             
-    duration: 3336.3330416666668                                  
+  - href: "lysistrata_110_64kb.mp3"             
+    duration: 3010                                  
     type: "audio/mpeg"                                                                                        
-  - href: "6729-002.m4a"
-    duration: 2446.1845
-    type: "audio/mpeg"
-  - href: "6729-003.m4a"
-    duration: 2543.1249166666666
-    type: "audio/mpeg"
-  - href: "6729-004.m4a"
-    duration: 3364.022875
-    type: "audio/mpeg"
-  - href: "6729-005.m4a"
-    duration: 3364.022875
+  - href: "lysistrata_210_64kb.mp3"
+    duration: 1663
     type: "audio/mpeg"
 
 ```
 
 ## EPUB
 
-This is the most interesting case, as we have an installed base to worry about. Can we map our JSON/YAML to OPF?
+This is the most interesting case, as we have a million or so existing documents, and a whole industry, to worry about. Can we map our JSON/YAML to OPF? I think so.
 
 
 | WPUB/WAM JSON | AUDIO YAML | EPUB OPF XML |
@@ -127,6 +133,33 @@ This is the most interesting case, as we have an installed base to worry about. 
 | type | type | media-type |
 
 
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" xml:lang="en" unique-identifier="q">
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <dc:title id="title">Lysistrata</dc:title>
+  <dc:language>en</dc:language>
+  <dc:identifier id="q">urn:isbn:978000000000X</dc:identifier>
+  <meta property="dcterms:modified">2018-12-20T16:00:01Z</meta>
+</metadata>
+<manifest>
+  <item id="chapter-001"  href="chapter-001.xhtml" media-type="application/xhtml+xml"/>
+  <item id="chapter-002"  href="chapter-002.xhtml" media-type="application/xhtml+xml"/>
+  <item id="chapter-003"  href="chapter-003.xhtml" media-type="application/xhtml+xml"/>
+  <item id="cover-image"  href="cover.jpg" media-type="image/jpeg properties="cover-image"/>
+  <item id="nav"  href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+</manifest>
+<spine>
+  <itemref idref="chapter-001" />
+  <itemref idref="chapter-002" />
+  <itemref idref="chapter-003" />
+</spine>
+</package>
+
+
+```
+
+
 ## Entry pages and the HTML question
 
 We mentioned that one of the big questions is, "where do I start?"
@@ -135,7 +168,7 @@ We mentioned that one of the big questions is, "where do I start?"
 
  - A web publication has a URL, although it's not quite clear if you go to that URL and find a manifest with the first item in the reading order being a different URL.
 
- - EPUB has container.xml pointing to an OPF file which contains a first spine item.
+ - EPUB has `container.xml` pointing to an OPF file which contains a first `spine` item.
 
  - Audiobooks are more purely sequential; it seems that they would just start at the first audio resource. 
  
@@ -153,9 +186,11 @@ This seems to imply that an HTML entry page is not needed in the audio case. It 
 
 - Audio to WPUB would involve YAML to JSON, and creating an HTML entry page with a link to the new manifest.
 
+- Any conversion to or from EPUB would ignore some less-used features of EPUB, such as multiple renditions, or archaic features like the NCX. We would not aim to preserver internal IDs in the package file.
+
 ## Packaging
 
- - The forthcoming? web packaging from google will have a dependency on WAM. Having a WPUB manifest based on WAM will help.
+ - The forthcoming(?) [Web Packaging](https://github.com/WICG/webpackage) spec from WICG will have a dependency on WAM. Having a WPUB manifest based on WAM will help.
  
  - A very simple ZIP + well-known location for manifest (or only one .yaml or .json file) seems to work for audio books, which don't need the additional complexity of OCF.
  
