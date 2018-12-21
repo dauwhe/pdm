@@ -91,7 +91,7 @@ We have a few core concepts, which we can express differently in different conte
 
 
 |Concept| JSON for WPUB | YAML for Audio/Image | XML for EPUB |
-|| ------------- | ------------- | ------------- |
+| ------------- | ------------- | ------------- | ------------- |
 | sequence | readingOrder | readingOrder | spine |
 | list of resources | resources | resources | manifest minus spine |
 | location of resources | href | href | href |
@@ -103,7 +103,7 @@ We have a few core concepts, which we can express differently in different conte
 ### Other metadata (to facilitate conversion between formats)
 
 |Concept| JSON for WPUB | YAML for Audio/Image | XML for EPUB |
-|| ------------- | ------------- | ------------- |
+| ------------- | ------------- | ------------- | ------------- |
 | title | name | name | dc:title |
 | last modified date | modified | modified | dc:modified |
 | identifier | identifier | identifier | dc:identifier |
