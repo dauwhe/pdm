@@ -1,9 +1,12 @@
-# Publication Data Model (PDM)
+# Publication Data Model (PDM) Explainer
+
+## Abstract
+
+We hope to define a common data model for all types of digital publications, including audio books, digital sequential art, the existing EPUB format, and what we might call web publications. We focus on structural metadata rather than bibliographic metadata, and do not seek to define behaviors or interfaces, but only to provide a minimal set of data to allow such interfaces and affordances to be provided by developers and user agents.
 
 ## Introduction
 
 The publishing world has been making OEBs and EPUBs for twenty years. We have been struggling for four years to write a web publications spec. We  don't have an audiobook spec, but we need one. We wonder what the future of EPUB is. We struggle to fit in with the web world. 
-
 
 What we actually want are behaviors. We want a page turn at the end of chapter one to automatically take us to chapter two. We don't want to have to press "play" for every track of an audiobook. We want search to work across a whole publication, regardless of how many files. We want a different user interface/display mode when we're reading a publication. We want to bundle up all the pieces of a publication into a single file and send them to our friends, or our distributor. We want to be able to easily create, edit, and understand our publications.
 
@@ -20,7 +23,7 @@ Maybe it's only two things, boundary and sequence.
 I wonder if it's possible to define a flexible data model for publishing, which can serve as common DNA for many different types of publications. With differing serializations and packaging, can we express everything from EPUB 3 to a futuristic web publication with a relatively simple model? Let's try.
 
 
-**NOTE:** Nothing here extends the capabilities of the web. We need that, but we don't fully know what we need. We need to experiment, but our experimentation would be facilitated by having an agreed-on data model. Here's the basic info about a publication—there may be hundreds of ways of expressing that with markup and script. I suspect we'll run into problems with personalization, with pagination, with crafting URLs that point to secondary browsing contexts. Maybe we'll need HTML imports, or other forms of transclusion. But let's all experiment while sharing the fundamental expressions of sequence and boundary that define a publication. 
+**NOTE:** Nothing here extends the capabilities of the web. We need that, but we don't fully know what we need. We need to experiment, but our experimentation would be facilitated by having an agreed-on data model. Here's the basic info about a publication—there may be hundreds of ways of expressing that with markup and script. We'll likely run into problems with personalization, with pagination, with crafting URLs that point to secondary browsing contexts. Maybe we'll need HTML imports, or other forms of transclusion. But let's all experiment while sharing the fundamental expressions of sequence and boundary that define a publication. 
 
 ## The existing landscape and web application manifest.
 
@@ -44,7 +47,7 @@ The Publishing Working Group (PWG) has rejected WAM, but we should reconsider th
 
 ## A few words on Metadata, JSON-LD, and schema.org
 
-The design of web publications has been complicated by our desire to use schema.org. We apply unfamiliar names to concepts. We introduce complications (two contexts!). And the end result is that I paste our work into Google's structured data testing tool, and get hundreds of errors. 
+The design of web publications has been complicated by our desire to use schema.org. We apply unfamiliar names to concepts. We introduce complications (two contexts!). And the end result is that when we paste our work into Google's structured data testing tool, we get hundreds of errors. 
 
 We should focus on the structural issues of publications at this early stage. The web has a multiplicity of methods to assign metadata to web pages. Perhaps we can leave this up to authors and developers, or at least not spend much of our time worrying about how titles sort, when we don't know how publications work. 
 
@@ -164,7 +167,7 @@ As with audio, this could be packaged simply with ZIP. And using YAML rather tha
 
 ## EPUB
 
-This is the most interesting case, as we have a million or so existing documents, and a whole industry, to worry about. Can we map our JSON/YAML to OPF? I think so.
+This is the most interesting case, as we have a million or so existing documents, and a whole industry, to worry about. Can we map our JSON/YAML to OPF? Yes!
 
 
 | WPUB/WAM JSON | AUDIO YAML | EPUB OPF XML |
@@ -244,9 +247,9 @@ This seems to imply that an HTML entry page is not needed in the audio case. It 
 
 EPUB is really three specs:
 
-1. Content documents. What HTML and CSS can I use?
+1. Content documents. What HTML and CSS can be use?
 
-2. OPF. The package describes structural and bibliographic metadata. 
+2. OPF. The `package` file describes structural and bibliographic metadata. 
 
 3. OCF. How to package it?
 
