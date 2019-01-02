@@ -10,116 +10,61 @@ The publishing world has been making OEBs and EPUBs for twenty years. We have be
 
 What we actually want are behaviors. We want a page turn at the end of chapter one to automatically take us to the start of chapter two. We don’t want to have to press "play" for every track of an audiobook. We want search to work across a whole publication, regardless of how many files. We want a different user interface/display mode when we’re reading a publication. We want to bundle up all the pieces of a publication into a single file and send them to our friends, or our distributor. We want to be able to easily create, edit, and understand our publications.
 
-But to do all these things, we need information. We really only need to know three things:
+But to do all these things, we need information. We really only need to know two things:
 
-1. where do I start?
+1. Sequence: where do I start? What comes next?
 
-2. what comes next?
-
-3. what’s part of the publication, and what isn’t?
-
-Maybe it’s only two things, boundary and sequence. 
+2. Boundary: what’s part of the publication, and what isn’t?
 
 Might it be possible to define a flexible data model for publishing, which can serve as common DNA for many different types of publications? With differing serializations and packaging, can we express everything from EPUB 3 to a futuristic web publication with a relatively simple model? Let’s try.
 
-
-**NOTE:** Nothing here extends the capabilities of the web. We need that, but we don’t fully know what we need. We need to experiment, but our experimentation would be facilitated by having an agreed-on data model. Given the basic information about a publication, there may be hundreds of ways of expressing that with markup and script. We’ll likely run into problems with personalization, with pagination, with crafting URLs that point to secondary browsing contexts. Maybe we’ll need HTML imports, or other forms of transclusion. But let’s all experiment while sharing the fundamental expressions of sequence and boundary that define a publication. 
-
-
-## Design Choices
-
-### Relationship to web application manifest
-
-This work does not happen in a vacuum. EPUB is a billion-dollar industry. The web is part of the very fabric of our lives. We must reuse existing technology as much as possible.
-
-To a large extent, we are trying to express metadata about a collection of web resources. A collection of web resources might be a web site, or a web application. And there is an existing effort to express metadata about web applications, namely the [Web Application Manifest](https://w3c.github.io/manifest/) spec, which we’ll refer to as WAM: 
-
-> This specification defines a JSON-based manifest file that provides developers with a centralized place to put metadata associated with a web application.
-
-This sounds close to what we need More importantly, we find:
-
-> Using this metadata, user agents can provide developers with means to create user experiences that are more comparable to that of a native application.
-
-*This* is what we want. We want to provide a better user experience for publications. We might need help from user agents. We definitely need help from developers.
-
-The Publishing Working Group (PWG) has rejected WAM, but we should reconsider that decision. Much of what is written below applies to any manifest file, whether it is identified as a web application manifest or not. However, using WAM gives us the tremendous advantage that the processing model and the nature of the display modes is already defined. We do not have the skills inside the Publishing Working Group to define things in a manner consistent with browser architecture and the web security model. 
-
-WAM, in its present form, largely exists to allow web apps to be "installed" in the manner of native apps on mobile platforms. In an ideal world, we would be able to add publications to bookshelves, as users want to organize their collections. The similarity between these two concepts is interesting. 
-
-### JSON-LD, schema.org, and metadata
-
-The design of web publications has been complicated by our desire to use [schema.org](https://schema.org). We apply unfamiliar names to concepts. We introduce complications (two contexts!). And the end result is that when we paste our work into Google’s structured data testing tool, we get hundreds of errors. Our ship founders on the treacherous reefs of RDF. 
-
-We should focus on the structural issues of publications at this early stage. The web has a multiplicity of methods to assign metadata to web pages. Perhaps we can leave this up to authors and developers, or at least not spend much of our time worrying about how titles sort, when we don’t know how publications work.
+## Goals and non-goals
 
 
-### Entry pages and the need for HTML
+Nothing here extends the capabilities of the web. We need that, but we don’t fully know what we need. We need to experiment, but our experimentation would be facilitated by having an agreed-on data model. Given the basic information about a publication, there may be hundreds of ways of expressing that with markup and script. We’ll likely run into problems with personalization, with pagination, with crafting URLs that point to secondary browsing contexts. Maybe we’ll need HTML imports, or other forms of transclusion. But let’s all experiment while sharing the fundamental expressions of sequence and boundary that define a publication.
 
-We mentioned that one of the big questions is, "where do I start?"
 
- - WAM has `start_url`.
 
- - A web publication has a URL, although it’s not quite clear what happens if you go to that URL and find a manifest with the first item in the reading order being a different URL.
 
- - EPUB has `container.xml` pointing to an OPF file which contains a first `spine` item.
 
- - Audiobooks are more purely sequential; it seems that they would just start at the first audio resource. The same might hold true for manga/comics/BD.
- 
-This seems to imply that an HTML entry page is not needed in the audio case. It is necessary for WPUB.
-
-```html
-<link rel="manifest" href="manifest.json">
-```
-
-### Packaging
-
-Our data model, of course, does not define packaging formats for publications. But we need to be aware of the various options, as information in our data model might help facilitate packaging, and many formats will ultimately be packaged.
-
- - The forthcoming(?) [Web Packaging](https://github.com/WICG/webpackage) spec from WICG will have a dependency on WAM. Having a WPUB manifest based on WAM might help. Of course, this spec will require modifications to support our use cases. Publications don't expire after seven days!
- 
- - David Singer is proposing a packaging format based on MPEG. 
- 
- - Just using ZIP plus a well-known location for the manifest seems to work for audio books and some image-only publications, which don’t need the additional complexity of OCF.
- 
- - EPUB can continue to use OCF.
 
 ## Data model
 
-We have a few core concepts, which we can express differently in different contexts. 
+We have a few core concepts, which we can express differently in different contexts. Note that the name used to express the concept is different 
 
 ### Structural metadata
 
 
-|Concept| JSON for WPUB | YAML for Audio/Image | XML for EPUB |
-| ------------- | ------------- | ------------- | ------------- |
-| type of publication | type | type | dc:type |
-| sequence of resources | readingOrder | readingOrder | spine |
-| list of resources | resources | resources | manifest minus spine |
-| location of resources | href | href | href |
-| media type of resource | media-type | media-type | media-type |
-| relationship to publication | rel | rel | rel |
-| textual label of resource | title | title | n/a |
+|Concept| JSON/YAML | XML |
+| ------------- | ------------- | ------------- |
+| type of publication | type | dc:type |
+| sequence of resources | readingOrder | spine |
+| list of resources | resources | manifest minus spine |
+| location of resources | href | href |
+| media type of resource | media-type | media-type |
+| relationship to publication | rel | rel |
+| textual label of resource | title | n/a |
 
 
 ### General metadata (to facilitate conversions between formats)
 
-|Concept| JSON for WPUB | YAML for Audio/Image | XML for EPUB |
-| ------------- | ------------- | ------------- | ------------- |
-| title | name | name | dc:title |
-| last modified date | modified | modified | dc:modified |
-| identifier | identifier | identifier | dc:identifier |
-| author | author | author | dc:creator + meta |
-| publisher | publisher | publisher | dc:publisher |
+|Concept| JSON/YAML | XML |
+| ------------- | ------------- | ------------- |
+| title | name | dc:title |
+| last modified date | modified | dc:modified |
+| identifier | identifier | dc:identifier |
+| author | author | dc:creator + meta |
+| publisher | publisher | dc:publisher |
 
 ### Audio-focused metadata 
-|Concept| JSON for WPUB | YAML for Audio/Image | XML for EPUB |
-| ------------- | ------------- | ------------- | ------------- |
-| narrator | narrator | narrator | dc:creator + meta |
-| duration | duration | duration | `meta property="media:duration"` |
-| size in bytes | size | size | ?? |
-| license? | license | license | ?? |
-| md5 hash of contents | md5 | md5 | ?? |
-| abridgment | abridgment | abridgment | ?? |
+|Concept| JSON/YAML | XML |
+| ------------- | ------------- | ------------- |
+| narrator | narrator | dc:creator + meta |
+| duration | duration | `meta property="media:duration"` |
+| size in bytes | size | ?? |
+| license? | license | ?? |
+| md5 hash of contents| md5 | ?? |
+| abridgment | abridgment | ?? |
 
 
 
@@ -268,6 +213,63 @@ This is the most interesting case, as we have a million or so existing documents
 </package>
 ```
 
+
+## Design Choices
+
+### Relationship to web application manifest
+
+This work does not happen in a vacuum. EPUB is a billion-dollar industry. The web is part of the very fabric of our lives. We must reuse existing technology as much as possible.
+
+To a large extent, we are trying to express metadata about a collection of web resources. A collection of web resources might be a web site, or a web application. And there is an existing effort to express metadata about web applications, namely the [Web Application Manifest](https://w3c.github.io/manifest/) spec, which we’ll refer to as WAM: 
+
+> This specification defines a JSON-based manifest file that provides developers with a centralized place to put metadata associated with a web application.
+
+This sounds close to what we need More importantly, we find:
+
+> Using this metadata, user agents can provide developers with means to create user experiences that are more comparable to that of a native application.
+
+*This* is what we want. We want to provide a better user experience for publications. We might need help from user agents. We definitely need help from developers.
+
+The Publishing Working Group (PWG) has rejected WAM, but we should reconsider that decision. Much of what is written below applies to any manifest file, whether it is identified as a web application manifest or not. However, using WAM gives us the tremendous advantage that the processing model and the nature of the display modes is already defined. We do not have the skills inside the Publishing Working Group to define things in a manner consistent with browser architecture and the web security model. 
+
+WAM, in its present form, largely exists to allow web apps to be "installed" in the manner of native apps on mobile platforms. In an ideal world, we would be able to add publications to bookshelves, as users want to organize their collections. The similarity between these two concepts is interesting. 
+
+### JSON-LD, schema.org, and metadata
+
+The design of web publications has been complicated by our desire to use [schema.org](https://schema.org). We apply unfamiliar names to concepts. We introduce complications (two contexts!). And the end result is that when we paste our work into Google’s structured data testing tool, we get hundreds of errors. Our ship founders on the treacherous reefs of RDF. 
+
+We should focus on the structural issues of publications at this early stage. The web has a multiplicity of methods to assign metadata to web pages. Perhaps we can leave this up to authors and developers, or at least not spend much of our time worrying about how titles sort, when we don’t know how publications work.
+
+
+### Entry pages and the need for HTML
+
+We mentioned that one of the big questions is, "where do I start?"
+
+ - WAM has `start_url`.
+
+ - A web publication has a URL, although it’s not quite clear what happens if you go to that URL and find a manifest with the first item in the reading order being a different URL.
+
+ - EPUB has `container.xml` pointing to an OPF file which contains a first `spine` item.
+
+ - Audiobooks are more purely sequential; it seems that they would just start at the first audio resource. The same might hold true for manga/comics/BD.
+ 
+This seems to imply that an HTML entry page is not needed in the audio case. It is necessary for WPUB.
+
+```html
+<link rel="manifest" href="manifest.json">
+```
+
+### Packaging
+
+Our data model, of course, does not define packaging formats for publications. But we need to be aware of the various options, as information in our data model might help facilitate packaging, and many formats will ultimately be packaged.
+
+ - The forthcoming(?) [Web Packaging](https://github.com/WICG/webpackage) spec from WICG will have a dependency on WAM. Having a WPUB manifest based on WAM might help. Of course, this spec will require modifications to support our use cases. Publications don't expire after seven days!
+ 
+ - David Singer is proposing a packaging format based on MPEG. 
+ 
+ - Just using ZIP plus a well-known location for the manifest seems to work for audio books and some image-only publications, which don’t need the additional complexity of OCF.
+ 
+ - EPUB can continue to use OCF.
 
 ## Conversions
 
