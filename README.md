@@ -303,11 +303,11 @@ Our data model, of course, does not define packaging formats for publications. B
 
 Different serializations of the publication data can be used with various packaging formats and content to serve many different uses.
 
-|Concept| Audio/Image | Web Pub |  EPUB |
+| | Audio/Image | Web Pub |  EPUB |
 | ------------- | ------------- | ------------- | ------------- |
-| serialization | YAML | JSON | XML |
-| packaging | ZIP | web packaging? | OCF |
-| content | jpg/mp3/etc | any web stuff | epub content docs |
+| **Serialization** | YAML | JSON | XML |
+| **Packaging** | ZIP | web packaging? | OCF |
+| **Content** | jpg/mp3/etc | any web stuff | epub content docs |
 
 
 
