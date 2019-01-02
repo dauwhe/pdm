@@ -25,6 +25,8 @@ But to do all these things, we need information. We really only need to know two
 Might it be possible to define a flexible data model for publishing, which can serve as common DNA for many different types of publications? With differing serializations and packaging, can we express everything from EPUB 3 to a futuristic web publication with a relatively simple model? Let’s try.
 
 
+
+
 ### Non-goal: Extending the capabilities of the web
 
 Publications exist on the web today. It's possible (but very difficult) to build an EPUB reading system inside a browser. We believe that the web has not yet reached its full potential for presenting long-form documents to readers. But we don't yet know enough to say exactly what's missing. We need to experiment, but our experimentation would be facilitated by having an agreed-on data model. Given the basic information about a publication, there may be hundreds of ways of expressing that with markup and script. We’ll likely run into problems with personalization, with pagination, with crafting URLs that point to secondary browsing contexts. Maybe we’ll need HTML imports, or other forms of transclusion. But let’s all experiment while sharing the fundamental expressions of sequence and boundary that define a publication.
@@ -34,12 +36,12 @@ Publications exist on the web today. It's possible (but very difficult) to build
 
 ## Data model
 
-We have a few core concepts, which we can express differently in different contexts. Note that the name used to express the concept is different 
+We have a few core concepts, which can be expressed differently for different uses. 
 
 ### Structural metadata
 
 
-|Concept| JSON/YAML | XML |
+|Concept| Audio/Image/Web | EPUB |
 | ------------- | ------------- | ------------- |
 | type of publication | type | dc:type |
 | sequence of resources | readingOrder | spine |
@@ -52,7 +54,7 @@ We have a few core concepts, which we can express differently in different conte
 
 ### General metadata (to facilitate conversions between formats)
 
-|Concept| JSON/YAML | XML |
+|Concept| Audio/Image/Web | EPUB |
 | ------------- | ------------- | ------------- |
 | title | name | dc:title |
 | last modified date | modified | dc:modified |
@@ -61,7 +63,7 @@ We have a few core concepts, which we can express differently in different conte
 | publisher | publisher | dc:publisher |
 
 ### Audio-focused metadata 
-|Concept| JSON/YAML | XML |
+|Concept| Audio/Image/Web | EPUB |
 | ------------- | ------------- | ------------- |
 | narrator | narrator | dc:creator + meta |
 | duration | duration | `meta property="media:duration"` |
@@ -78,7 +80,7 @@ We have a few core concepts, which we can express differently in different conte
 
 ### Web Publications 
 
-What is a web publication? Right now it’s essentially a URL that points to an HTML resource that contains a manifest or a link to a manifest. The web publication manifest is currently defined as JSON-LD with a schema.org context as well as a custom context. Instead, let’s just start with a very simple WAM:
+What is a web publication? Right now it’s essentially a URL that points to an HTML resource that contains a manifest or a link to a manifest. The web publication manifest is currently defined as JSON-LD with a schema.org context as well as a custom context. Instead, let’s just start with a very simple web application manifest (more on this later):
 
 
 ```json
@@ -89,7 +91,7 @@ What is a web publication? Right now it’s essentially a URL that points to an 
 ```
 
 
-We can borrow from the work of PWG to add `readingOrder` and `resources`. 
+We can borrow from the work of the Publishing Working Group (PWG) to add `readingOrder` and `resources`. 
 
 ```json
 {
@@ -148,9 +150,7 @@ readingOrder:
 
 ### Digital Sequential Art (Comics/Manga/Bandes Dessinées)
 
-This is an interesting area. Many publications can be expressed purely as a sequence of images, and something analogous to the audio approach would work.
-
-But if you start adding features like panel-to-panel navigation and page transitions, this starts to look much more like web publications, where the full power of the open web platform is required.
+This is an interesting area. Many publications can be expressed purely as a sequence of images, and something analogous to the audio approach would work. But if you start adding features like panel-to-panel navigation and page transitions, this starts to look much more like web publications, where the full power of the open web platform is required.
 
 ```yaml
 type: imagebook
@@ -189,7 +189,7 @@ As with audio, this could be packaged simply with ZIP. And using YAML rather tha
 
 ### EPUB
 
-This is the most interesting case, as we have a million or so existing documents, and a whole industry, to worry about. Here's an ordinary package file for a book:
+This is an interesting case, as we have a million or so existing documents, and a whole industry, to worry about. Here's an ordinary package file for a book:
 
 
 
