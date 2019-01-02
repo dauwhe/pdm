@@ -299,14 +299,15 @@ Our data model, of course, does not define packaging formats for publications. B
  
  - EPUB can continue to use OCF.
 
-## Conversions
+## Putting it all together
 
-- An unzipped EPUB 3 works relatively well on the web if you can start with the `nav` file. If converting EPUB to WPUB, you could convert OPF to WAM/PDM, add a link to that manifest to the `nav` file, and identify the location of the `nav` file as the URL of the WPUB. 
+Different serializations of the publication data can be used with various packaging formats and content to serve many different uses.
 
-- Any conversion to or from EPUB would ignore some less-used features of EPUB, such as multiple renditions, or archaic features like the NCX. We would not aim to preserver internal IDs in the package file.
+|Concept| Audio/Image | Web Pub |  EPUB |
+| ------------- | ------------- | ------------- | ------------- |
+| serialization | YAML | JSON | XML |
+| packaging | ZIP | web packaging? | OCF |
+| content | jpg/mp3/etc | any web stuff | epub content docs |
 
-- WPUB to EPUB would involve creating an OPF file from the manifest.
-
-- Audio to WPUB would involve YAML to JSON, and creating an HTML entry page with a link to the new manifest or (preferably) an embedded manifest. 
 
 
