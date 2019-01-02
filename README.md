@@ -16,6 +16,8 @@ But to do all these things, we need information. We really only need to know two
 
 2. **Boundary**: what’s part of the publication, and what isn’t?
 
+Having this data is just a beginning. 
+
 
 ## Goals and non-goals
 
@@ -28,11 +30,6 @@ Might it be possible to define a flexible data model for publishing, which can s
 ### Non-goal: Defining Behavior
 
 As mentioned in the introduction, our ultimate goal is to enable behaviors that make it easier to read publications. But we are not ready to define those behaviors, which may be very different for different types of publications. 
-
-
-
-
-
 
 
 ### Non-goal: Extending the capabilities of the web
