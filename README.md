@@ -93,12 +93,12 @@ We have a few core concepts, which can be expressed differently for different us
 |Concept| Audio/Image/Web | EPUB |
 | ------------- | ------------- | ------------- |
 | Access Mode | accessMode | accessMode |
-| Access Mode Sufficient | accessModeSufficient | ?? |
-| Accessibility API | accessibilityAPI | ?? |
-| Accessibility Control | accessibilityControl | ?? |
-| Accessibility Feature| accessibilityFeature | ?? |
-| Accessibility Hazard | accessibilityHazard | ?? |
-| Accessibility Summary | accessibilitySummary | ?? |
+| Access Mode Sufficient | accessModeSufficient | accessModeSufficient |
+| Accessibility API | accessibilityAPI | accessibilityAPI |
+| Accessibility Control | accessibilityControl | accessibilityControl |
+| Accessibility Feature| accessibilityFeature | accessibilityFeature |
+| Accessibility Hazard | accessibilityHazard | accessibilityHazard |
+| Accessibility Summary | accessibilitySummary | accessibilitySummary |
 
 
 
