@@ -25,11 +25,25 @@ But to do all these things, we need information. We really only need to know two
 Might it be possible to define a flexible data model for publishing, which can serve as common DNA for many different types of publications? With differing serializations and packaging, can we express everything from EPUB 3 to a futuristic web publication with a relatively simple model? Let’s try.
 
 
+### Non-goal: Defining Behavior
+
+As mentioned in the introduction, our ultimate goal is to enable behaviors that make it easier to read publications. But we are not ready to define those behaviors, which may be very different for different types of publications. 
+
+
+
+
+
 
 
 ### Non-goal: Extending the capabilities of the web
 
 Publications exist on the web today. It's possible (but very difficult) to build an EPUB reading system inside a browser. We believe that the web has not yet reached its full potential for presenting long-form documents to readers. But we don't yet know enough to say exactly what's missing. We need to experiment, but our experimentation would be facilitated by having an agreed-on data model. Given the basic information about a publication, there may be hundreds of ways of expressing that with markup and script. We’ll likely run into problems with personalization, with pagination, with crafting URLs that point to secondary browsing contexts. Maybe we’ll need HTML imports, or other forms of transclusion. But let’s all experiment while sharing the fundamental expressions of sequence and boundary that define a publication.
+
+
+
+
+
+
 
 
 
@@ -52,7 +66,9 @@ We have a few core concepts, which can be expressed differently for different us
 | textual label of resource | title | n/a |
 
 
-### General metadata (to facilitate conversions between formats)
+### General metadata
+
+
 
 |Concept| Audio/Image/Web | EPUB |
 | ------------- | ------------- | ------------- |
@@ -72,6 +88,17 @@ We have a few core concepts, which can be expressed differently for different us
 | md5 hash of contents| md5 | ?? |
 | abridgment | abridgment | ?? |
 
+
+### [Accessibility discovery metadata](https://www.w3.org/wiki/WebSchemas/Accessibility#Vocabulary) 
+|Concept| Audio/Image/Web | EPUB |
+| ------------- | ------------- | ------------- |
+| Access Mode | accessMode | accessMode |
+| Access Mode Sufficient | accessModeSufficient | ?? |
+| Accessibility API | accessibilityAPI | ?? |
+| Accessibility Control | accessibilityControl | ?? |
+| Accessibility Feature| accessibilityFeature | ?? |
+| Accessibility Hazard | accessibilityHazard | ?? |
+| Accessibility Summary | accessibilitySummary | ?? |
 
 
 
