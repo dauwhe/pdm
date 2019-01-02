@@ -12,18 +12,22 @@ What we actually want are behaviors. We want a page turn at the end of chapter o
 
 But to do all these things, we need information. We really only need to know two things:
 
-1. Sequence: where do I start? What comes next?
+1. **Sequence**: where do I start? What comes next?
 
-2. Boundary: what’s part of the publication, and what isn’t?
+2. **Boundary**: what’s part of the publication, and what isn’t?
 
-Might it be possible to define a flexible data model for publishing, which can serve as common DNA for many different types of publications? With differing serializations and packaging, can we express everything from EPUB 3 to a futuristic web publication with a relatively simple model? Let’s try.
 
 ## Goals and non-goals
 
 
-Nothing here extends the capabilities of the web. We need that, but we don’t fully know what we need. We need to experiment, but our experimentation would be facilitated by having an agreed-on data model. Given the basic information about a publication, there may be hundreds of ways of expressing that with markup and script. We’ll likely run into problems with personalization, with pagination, with crafting URLs that point to secondary browsing contexts. Maybe we’ll need HTML imports, or other forms of transclusion. But let’s all experiment while sharing the fundamental expressions of sequence and boundary that define a publication.
+### Goal: A single data model for many types of publications
+
+Might it be possible to define a flexible data model for publishing, which can serve as common DNA for many different types of publications? With differing serializations and packaging, can we express everything from EPUB 3 to a futuristic web publication with a relatively simple model? Let’s try.
 
 
+### Non-goal: Extending the capabilities of the web
+
+Publications exist on the web today. It's possible (but very difficult) to build an EPUB reading system inside a browser. We believe that the web has not yet reached its full potential for presenting long-form documents to readers. But we don't yet know enough to say exactly what's missing. We need to experiment, but our experimentation would be facilitated by having an agreed-on data model. Given the basic information about a publication, there may be hundreds of ways of expressing that with markup and script. We’ll likely run into problems with personalization, with pagination, with crafting URLs that point to secondary browsing contexts. Maybe we’ll need HTML imports, or other forms of transclusion. But let’s all experiment while sharing the fundamental expressions of sequence and boundary that define a publication.
 
 
 
