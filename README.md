@@ -264,7 +264,7 @@ WAM, in its present form, largely exists to allow web apps to be "installed" in 
 
 ### JSON-LD, schema.org, and metadata
 
-The design of web publications has been complicated by our desire to use [schema.org](https://schema.org). We apply unfamiliar names to concepts. We introduce complications (two contexts!). And the end result is that when we paste our work into Google’s structured data testing tool, we get hundreds of errors. Our ship founders on the treacherous reefs of RDF. 
+The design of web publications has been complicated by our desire to use [schema.org](https://schema.org). We apply unfamiliar names to concepts. We introduce complications (two contexts!). And the end result is that when we paste our work into Google’s structured data testing tool, we get hundreds of errors. 
 
 We should focus on the structural issues of publications at this early stage. The web has a multiplicity of methods to assign metadata to web pages. Perhaps we can leave this up to authors and developers, or at least not spend much of our time worrying about how titles sort, when we don’t know how publications work.
 
